@@ -1,6 +1,6 @@
 -- TRIP ACTIVITIES TABLE
 -- Activities selected for a trip stop
-CREATE TABLE activities (
+CREATE TABLE IF NOT EXISTS activities (
     activity_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
     city_id UUID NOT NULL,
