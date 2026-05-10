@@ -1,6 +1,6 @@
 -- EXPENSES TABLE
 -- Actual expense tracking
-CREATE TABLE expenses (
+CREATE TABLE IF NOT EXISTS expenses (
     expense_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
     trip_id UUID NOT NULL,
