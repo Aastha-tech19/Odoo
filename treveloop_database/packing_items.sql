@@ -1,6 +1,6 @@
 -- PACKING CHECKLIST TABLE
 
-CREATE TABLE packing_items (
+CREATE TABLE IF NOT EXISTS packing_items (
     item_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
     trip_id UUID NOT NULL,
