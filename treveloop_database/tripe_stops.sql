@@ -1,7 +1,7 @@
 -- TRIP STOPS TABLE
 -- Connects trips with cities
 
-CREATE TABLE trip_stops (
+CREATE TABLE IF NOT EXISTS trip_stops (
     stop_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
     trip_id UUID NOT NULL,
