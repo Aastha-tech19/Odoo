@@ -12,14 +12,30 @@ import {
   Search,
   LogOut,
 } from "lucide-react"
-
 import {
   Link,
   useLocation,
+  useNavigate,
 } from "react-router-dom"
 
 function Sidebar() {
   const location = useLocation()
+  const navigate = useNavigate()
+
+  const storedUser = localStorage.getItem(
+    "traveloopUser"
+  )
+  const user = storedUser
+    ? JSON.parse(storedUser)
+    : null
+  const initials = user?.full_name
+    ? user.full_name
+        .split(" ")
+        .filter(Boolean)
+        .slice(0, 2)
+        .map((part) => part[0]?.toUpperCase())
+        .join("")
+    : "GU"
 
   const menuItems = [
     {
@@ -79,14 +95,17 @@ function Sidebar() {
     },
   ]
 
+  function handleLogout() {
+    localStorage.removeItem("traveloopUser")
+    navigate("/login")
+  }
+
   return (
-      <aside className="fixed top-0 left-0 h-screen w-[290px] overflow-y-auto bg-slate-900 border-r border-slate-800 hidden lg:flex flex-col justify-between p-6 scrollbar-hide">
-      {/* Top */}
+    <aside className="fixed top-0 left-0 h-screen w-[290px] overflow-y-auto bg-slate-900 border-r border-slate-800 hidden lg:flex flex-col justify-between p-6 scrollbar-hide">
       <div>
-        {/* Logo */}
         <div className="mb-10">
           <h1 className="text-4xl font-bold text-cyan-400">
-            Traveloop ✈️
+            Traveloop
           </h1>
 
           <p className="text-gray-400 text-sm mt-2">
@@ -94,33 +113,29 @@ function Sidebar() {
           </p>
         </div>
 
-        {/* Profile Card */}
         <div className="bg-slate-800 rounded-[30px] p-5 border border-slate-700 mb-8">
           <div className="flex items-center gap-4">
             <div className="h-14 w-14 rounded-full bg-cyan-500 flex items-center justify-center text-black font-bold text-xl">
-              A
+              {initials}
             </div>
 
-            <div>
-              <h2 className="font-bold text-lg">
-                Aastha
+            <div className="min-w-0">
+              <h2 className="font-bold text-lg truncate">
+                {user?.full_name || "Guest User"}
               </h2>
 
-              <p className="text-gray-400 text-sm">
-                Traveler
+              <p className="text-gray-400 text-sm truncate">
+                {user?.email || "Traveler"}
               </p>
             </div>
           </div>
         </div>
 
-        {/* Navigation */}
         <div className="space-y-2 pb-20">
           {menuItems.map((item, index) => {
             const Icon = item.icon
-
             const isActive =
-              location.pathname ===
-              item.path
+              location.pathname === item.path
 
             return (
               <Link
@@ -140,8 +155,11 @@ function Sidebar() {
         </div>
       </div>
 
-      {/* Logout */}
-      <button className="flex items-center gap-4 text-red-400 hover:bg-red-500/10 rounded-2xl px-5 py-4 transition">
+      <button
+        type="button"
+        onClick={handleLogout}
+        className="flex items-center gap-4 text-red-400 hover:bg-red-500/10 rounded-2xl px-5 py-4 transition"
+      >
         <LogOut size={22} />
         Logout
       </button>
