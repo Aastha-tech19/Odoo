@@ -1,6 +1,6 @@
 -- TRIP NOTES TABLE
 
-CREATE TABLE trip_notes (
+CREATE TABLE IF NOT EXISTS trip_notes (
     note_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
     trip_id UUID NOT NULL,
