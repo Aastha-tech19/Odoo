@@ -48,6 +48,49 @@ export function healthCheck() {
   return request("/health")
 }
 
+export function updateUserProfile(
+  userId,
+  data
+) {
+  return request(`/users/${userId}`, {
+    method: "PUT",
+    body: JSON.stringify(data),
+  })
+}
+
+export function createTrip(data) {
+  return request("/trips", {
+    method: "POST",
+    body: JSON.stringify(data),
+  })
+}
+
+export function getUserTrips(userId) {
+  return request(`/users/${userId}/trips`)
+}
+
+export function getUserNotes(userId) {
+  return request(`/users/${userId}/notes`)
+}
+
+export function createNote(data) {
+  return request("/notes", {
+    method: "POST",
+    body: JSON.stringify(data),
+  })
+}
+
+export function getTripStops(tripId) {
+  return request(`/trips/${tripId}/stops`)
+}
+
+export function createTripStop(data) {
+  return request("/stops", {
+    method: "POST",
+    body: JSON.stringify(data),
+  })
+}
+
 export async function getTripRecommendations(data) {
   try {
     return await request("/recommend-trip", {
