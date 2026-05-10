@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.db import init_database
 from app.routes import user_routes
 
 app = FastAPI(title="Traveloop API")
@@ -17,6 +18,11 @@ app.add_middleware(
 )
 
 app.include_router(user_routes.router)
+
+
+@app.on_event("startup")
+def startup():
+    init_database()
 
 
 @app.get("/")
