@@ -1,11 +1,12 @@
 -- CITIES TABLE
-CREATE TABLE cities (
+CREATE TABLE IF NOT EXISTS cities (
     city_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     city_name VARCHAR(100) NOT NULL,
     country VARCHAR(100) NOT NULL,
     cost_index NUMERIC(10,2),
     popularity_score INTEGER DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT uq_city_country UNIQUE(city_name, country)
 );
 
 
@@ -41,5 +42,6 @@ VALUES
 ('Vienna', 'Austria', 80.40, 86),
 ('Cape Town', 'South Africa', 52.80, 84),
 ('Rio de Janeiro', 'Brazil', 61.20, 90),
-('Toronto', 'Canada', 85.90, 87);
+('Toronto', 'Canada', 85.90, 87)
+ON CONFLICT (city_name, country) DO NOTHING;
 
