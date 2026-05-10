@@ -1,6 +1,6 @@
 -- BUDGETS TABLE
 -- Overall trip budget
-CREATE TABLE budgets (
+CREATE TABLE IF NOT EXISTS budgets (
     budget_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
     trip_id UUID UNIQUE NOT NULL,
